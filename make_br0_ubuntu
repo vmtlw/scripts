@@ -1,4 +1,3 @@
-#!/bin/bash
 #Open the Terminal app
 #Get info about the current connection:
 nmcli con show
