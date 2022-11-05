@@ -466,3 +466,7 @@ nmcli con add type bridge-slave ifname eno1 master bridge-br0
 sudo nmcli con down "Wired connection 1"
 nmcli con up bridge-br0
 
+
+ PageUp и PageDown
+"e[5~": history-search-backward
+"e[6~": history-search-forward
