@@ -311,3 +311,70 @@ RDEPEND - зависимость выполнения
 Локальное определение переменных: ~/.bashrc или ~/.bash_profile
 Сеансовые переменные: export PATH="${PATH}:/home/my_user/tmp/usr/bin"
 
+Потоки 
+
+stdin - по умолчанию номер потока ВВОДА 0
+stdout - по умолчанию номер потока ВЫВОДА 1
+stderr - по умолчанию номер потока ОШИБОК 2
+
+
+'>', '>|', '<>', '>&', '&>', '>>' - операторы перенаправления
+
+По умолчанию оператор > всегда перенаправляет поток stdout, который имеет номер 1. Чтобы направить другой поток, надо перед оператором > поставить его номер.
+
+command 2>file - перенаправит поток ошибок в file
+command >file 2>&1 - направили поток stdout в file, а затем направит stderr туда же, куда направлен stdout с помощью оператора & перед номером потока.
+find . | grep -e '/.svn$' | xargs rm -Rf -  отдаем нужные файлы команде xargs, которая вызывает rm -Rf и в качестве параметров использует свой stdin построчно
+
+ 2>&1 - Сообщения об ошибках передаются туда же, куда и стандартный вывод.
+ a>&b - Вывод в файл с дескриптором a передается в файл с дескриптором b.
+ >&b - Cтандартный вывод передаются в файл с дескриптором b
+ 0< или < - ввод из файла (прмер: grep search-word <filename)
+ [j]<>filename - произвольный доступ к файлу на чтение и запись + связывается с дескриптором b
+ a<&- - Закрыть дескриптор входного файла a
+ 0<&-, <&- - Закрыть поток ввода.
+ a>&- Закрыть дескриптор выходного файла a.
+ 1>&-, >&- - Закрыть вывода
+ 
+перенаправлять потоки можно утилитой exec
+
+При использрвании дескриптора с номером 5 могут возникать проблемы. Когда Bash порождает дочерний процесс, например командой exec, то дочерний процесс наследует дескриптор 5 как "открытый". Поэтому, лучше не использовать этот дескриптор
+	
+
+name="John"
+echo "${name}"
+echo "${name/J/j}"    #=> "john" (substitution)
+echo "${name:0:2}"    #=> "Jo" (slicing)
+echo "${name::2}"     #=> "Jo" (slicing)
+echo "${name::-1}"    #=> "Joh" (slicing)
+echo "${name:(-1)}"   #=> "n" (slicing from right)
+echo "${name:(-2):1}" #=> "h" (slicing from right)
+echo "${food:-Cake}"  #=> $food or "Cake"
+
+length=2
+echo "${name:0:length}"  #=> "Jo"
+
+str="/path/to/foo.cpp"
+echo "${str%.cpp}"    # /path/to/foo
+echo "${str%.cpp}.o"  # /path/to/foo.o
+echo "${str%/*}"      # /path/to
+echo "${str##*.}"     # cpp (extension)
+echo "${str##*/}"     # foo.cpp (basepath)
+echo "${str#*/}"      # path/to/foo.cpp
+echo "${str##*/}"     # foo.cpp
+echo "${str/foo/bar}" # /path/to/bar.cpp
+
+str="Hello world"
+echo "${str:6:5}"   # "world"
+echo "${str: -5:5}"  # "world"
+src="/path/to/foo.cpp"
+base=${src##*/}   #=> "foo.cpp" (basepath)
+dir=${src%$base}  #=> "/path/to/" (dirpath)
+
+str="HELLO WORLD!"
+echo "${str,}"   #=> "hELLO WORLD!" (lowercase 1st letter)
+echo "${str,,}"  #=> "hello world!" (all lowercase)
+
+str="hello world!"
+echo "${str^}"   #=> "Hello world!" (uppercase 1st letter)
+echo "${str^^}"  #=> "HELLO WORLD!" (all uppercase
