@@ -379,6 +379,27 @@ str="hello world!"
 echo "${str^}"   #=> "Hello world!" (uppercase 1st letter)
 echo "${str^^}"  #=> "HELLO WORLD!" (all uppercase
 
+цвет текста:
+\033[30m - чёрный;
+\033[31m - красный;
+\033[32m - зелёный;
+\033[33m - желтый;
+\033[34m - синий;
+\033[35m - фиолетовый;
+\033[36m - голубой;
+\033[37m - серый.
+
+цвет фона:
+\033[40m - чёрный;
+\033[41m - красный;
+\033[42m - зелёный;
+\033[43m - желтый;
+\033[44m - синий;
+\033[45m - фиолетовый;
+\033[46m - голубой;
+\033[47m - серый;
+\033[0m - сбросить все до значений по умолчанию.
+
 
 Looping Constructs
 
@@ -389,19 +410,59 @@ until test-commands;
 
 while test-commands;
         do consequent-commands;
-        done
+done
 
 for name in [список …];
         do consequent-commands;
-        done
+done
 
 for (( выражение1; выражение2; выражение3; ));
 	do consequent-commands;
-        done
+done
+
+for ((i = 0 ; i < 100 ; i++)); do
+	echo "$i"
+	done
+
+for i in {1..5}; 
+	do consequent-commands;
+done
+
+while read -r line; 
+	do echo "$line"
+done < file.txt
+
+for i in {5..50..5}; 
+	do consequent-commands;
+done
+
+while true;
+	do consequent-commands;
+done
 
  стек каталогов
 
 dirs [-clpv] [+N | -N]  - Отображение имеющегося стека
 popd [-n] [+N | -N] - Удаляет элементы из стека каталогов. Элементы нумеруются с 0, начиная с первого каталога, указанного dirs
 pushd [-n] [+N | -N | dir] - Добавляет каталог на вершину стека каталогов или вращает стек, делая новую вершину стека текущим рабочим каталогом.
+
+
+чтобы добавить подсветку man страниц:
+
+
+export LESS_TERMCAP_mb=$'\033[01;36m'
+export LESS_TERMCAP_md=$'\033[01;32m'
+export LESS_TERMCAP_me=$'\033[0m'
+export LESS_TERMCAP_mu=$'\033[01;37m'
+export LESS_TERMCAP_se=$'\033[0m'
+export LESS_TERMCAP_so=$'\033[01;44;33m'
+export LESS_TERMCAP_ue=$'\033[0m'
+export LESS_TERMCAP_us=$'\033[01;36m'
+
+
+nmcli con show
+nmcli con add type bridge ifname br0
+nmcli con add type bridge-slave ifname eno1 master bridge-br0
+sudo nmcli con down "Wired connection 1"
+nmcli con up bridge-br0
 
