@@ -378,3 +378,30 @@ echo "${str,,}"  #=> "hello world!" (all lowercase)
 str="hello world!"
 echo "${str^}"   #=> "Hello world!" (uppercase 1st letter)
 echo "${str^^}"  #=> "HELLO WORLD!" (all uppercase
+
+
+Looping Constructs
+
+
+until test-commands; 
+	do consequent-commands; 
+	done
+
+while test-commands;
+        do consequent-commands;
+        done
+
+for name in [список …];
+        do consequent-commands;
+        done
+
+for (( выражение1; выражение2; выражение3; ));
+	do consequent-commands;
+        done
+
+ стек каталогов
+
+dirs [-clpv] [+N | -N]  - Отображение имеющегося стека
+popd [-n] [+N | -N] - Удаляет элементы из стека каталогов. Элементы нумеруются с 0, начиная с первого каталога, указанного dirs
+pushd [-n] [+N | -N | dir] - Добавляет каталог на вершину стека каталогов или вращает стек, делая новую вершину стека текущим рабочим каталогом.
+
