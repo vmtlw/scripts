@@ -1,0 +1,30 @@
+fzf
+google-chrome-stable
+inxi
+iperf
+jq
+libreoffice7.4
+lxc
+mc
+ncdu
+neofetch
+net-tools
+nmap
+qrencode
+scrcpy
+strace
+wireguard-tools
+tmux
+elisa #(warning:kde)
+simplescreenrecorder
+telegram
+peek
+kdenlive #(warning:kde)
+krita #(warning:kde)
+plank
+conky
+chromium
+nomacs
+amberol (music player opensource)
+museeks (music player deb)
+
